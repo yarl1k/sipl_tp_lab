@@ -1,0 +1,44 @@
+(* SIPL EBNF used by this implementation.
+   The statement levels resolve the ambiguity of the course BNF according to
+   the operator priorities stated in the practical work.
+*)
+
+program             = "begin", statement, "end" ;
+
+statement            = conditional, { ";", conditional } ;
+conditional           = if_statement | while_statement ;
+if_statement          = "if", condition, "then", while_statement,
+                        "else", while_statement ;
+while_statement       = "while", condition, "do", while_statement
+                      | simple_statement ;
+simple_statement      = assignment | block | "skip" ;
+assignment            = variable, ":=", arithmetic_expression ;
+block                 = "begin", statement, "end" ;
+
+condition             = boolean_or ;
+boolean_or            = boolean_not, { "∨", boolean_not } ;
+boolean_not           = "¬", boolean_not
+                      | boolean_primary ;
+boolean_primary       = comparison
+                      | "(", condition, ")" ;
+comparison            = arithmetic_expression, ("=" | ">"),
+                        arithmetic_expression ;
+
+arithmetic_expression = term, { ("+" | "-"), term } ;
+term                  = primary, { "*", primary } ;
+primary               = integer
+                      | variable
+                      | "(", arithmetic_expression, ")" ;
+
+variable              = upper_letter ;
+upper_letter          = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+                      | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+                      | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+                      | "V" | "W" | "X" | "Y" | "Z" ;
+integer               = [ "-" ], digit, { digit } ;
+digit                 = "0" | "1" | "2" | "3" | "4"
+                      | "5" | "6" | "7" | "8" | "9" ;
+
+(* Whitespace separates tokens and is otherwise ignored. Keywords are
+   lowercase. Boolean operators are the course symbols ∨ and ¬.
+*)

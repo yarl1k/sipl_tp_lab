@@ -1,0 +1,7 @@
+include README.md
+include CHANGELOG.md
+include LICENSE
+recursive-include grammar *.ebnf
+recursive-include examples *.sipl
+recursive-include docs *.md
+recursive-include tests *.py *.json *.sipl *.md
