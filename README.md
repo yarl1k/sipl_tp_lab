@@ -1,6 +1,6 @@
 # SIPL Language Toolkit
 
-[![CI](https://github.com/yarl1k/sipl-univ-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/yarl1k/sipl-univ-toolkit/actions/workflows/ci.yml)
+[![CI](https://github.com/yarl1k/sipl_tp_lab/actions/workflows/ci.yml/badge.svg)](https://github.com/yarl1k/sipl_tp_lab/actions/workflows/ci.yml)
 
 ## Обрані завдання
 
