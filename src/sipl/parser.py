@@ -89,9 +89,9 @@ class Parser:
         start = self._advance()
         condition = self._parse_condition()
         self._expect("THEN", "then")
-        then_branch = self._parse_while()
+        then_branch = self._parse_if()
         self._expect("ELSE", "else")
-        else_branch = self._parse_while()
+        else_branch = self._parse_if()
         return ast.If(
             condition,
             then_branch,
@@ -105,7 +105,7 @@ class Parser:
         start = self._advance()
         condition = self._parse_condition()
         self._expect("DO", "do")
-        body = self._parse_while()
+        body = self._parse_if()
         return ast.While(condition, body, self._combine(start.span, body.span))
 
     def _parse_simple_statement(self) -> ast.Statement:
