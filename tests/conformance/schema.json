@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SIPL Conformance Cases",
+  "type": "object",
+  "required": ["schema_version", "description", "valid", "invalid"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "description": { "type": "string" },
+    "valid": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "initial_state", "expected_ast", "expected_state"],
+        "properties": {
+          "file": { "type": "string" },
+          "initial_state": { "$ref": "#/$defs/state" },
+          "expected_ast": { "type": "string" },
+          "expected_state": { "$ref": "#/$defs/state" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "invalid": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "expected_error"],
+        "properties": {
+          "file": { "type": "string" },
+          "expected_error": { "enum": ["LexError", "ParseError"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Z]$" },
+      "additionalProperties": { "type": "integer" }
+    }
+  },
+  "additionalProperties": false
+}

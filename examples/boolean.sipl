@@ -1,0 +1,6 @@
+begin
+    if (X > 0) ∨ ¬ (Y = 0) then
+        Z := X + Y
+    else
+        Z := 0
+end

@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0",
+  "description": "SIPL conformance fixtures: expected AST shape, final state, and error type.",
+  "valid": [
+    {
+      "file": "simple_assign.sipl",
+      "initial_state": {},
+      "expected_ast": "Program(Assign(X,Number(7)))",
+      "expected_state": {
+        "X": 7
+      }
+    },
+    {
+      "file": "negative_number.sipl",
+      "initial_state": {},
+      "expected_ast": "Program(Assign(X,Number(-3)))",
+      "expected_state": {
+        "X": -3
+      }
+    },
+    {
+      "file": "arithmetic_precedence.sipl",
+      "initial_state": {
+        "A": 2,
+        "B": 3,
+        "C": 4
+      },
+      "expected_ast": "Program(Assign(X,Arithmetic+(Variable(A),Arithmetic*(Variable(B),Variable(C)))))",
+      "expected_state": {
+        "A": 2,
+        "B": 3,
+        "C": 4,
+        "X": 14
+      }
+    },
+    {
+      "file": "left_associative.sipl",
+      "initial_state": {
+        "A": 10,
+        "B": 3,
+        "C": 2
+      },
+      "expected_ast": "Program(Assign(X,Arithmetic-(Arithmetic-(Variable(A),Variable(B)),Variable(C))))",
+      "expected_state": {
+        "A": 10,
+        "B": 3,
+        "C": 2,
+        "X": 5
+      }
+    },
+    {
+      "file": "block_sequence.sipl",
+      "initial_state": {},
+      "expected_ast": "Program(Sequence(Block(Sequence(Assign(X,Number(1)),Assign(Y,Number(2)))),Assign(Z,Arithmetic+(Variable(X),Variable(Y)))))",
+      "expected_state": {
+        "X": 1,
+        "Y": 2,
+        "Z": 3
+      }
+    },
+    {
+      "file": "skip.sipl",
+      "initial_state": {},
+      "expected_ast": "Program(Skip)",
+      "expected_state": {}
+    },
+    {
+      "file": "if_true.sipl",
+      "initial_state": {
+        "X": 1
+      },
+      "expected_ast": "Program(If(Compare>(Variable(X),Number(0)),Assign(Y,Number(1)),Assign(Y,Number(0))))",
+      "expected_state": {
+        "X": 1,
+        "Y": 1
+      }
+    },
+    {
+      "file": "if_false.sipl",
+      "initial_state": {
+        "X": -1
+      },
+      "expected_ast": "Program(If(Compare>(Variable(X),Number(0)),Assign(Y,Number(1)),Assign(Y,Number(0))))",
+      "expected_state": {
+        "X": -1,
+        "Y": 0
+      }
+    },
+    {
+      "file": "while_loop.sipl",
+      "initial_state": {
+        "X": 3
+      },
+      "expected_ast": "Program(While(Compare>(Variable(X),Number(0)),Assign(X,Arithmetic-(Variable(X),Number(1)))))",
+      "expected_state": {
+        "X": 0
+      }
+    },
+    {
+      "file": "boolean_or.sipl",
+      "initial_state": {
+        "X": 0,
+        "Y": 2
+      },
+      "expected_ast": "Program(If(Or(Compare>(Variable(X),Number(0)),Compare>(Variable(Y),Number(0))),Assign(Z,Number(1)),Assign(Z,Number(0))))",
+      "expected_state": {
+        "X": 0,
+        "Y": 2,
+        "Z": 1
+      }
+    },
+    {
+      "file": "boolean_not.sipl",
+      "initial_state": {
+        "X": 2
+      },
+      "expected_ast": "Program(If(Not(ConditionGroup(Compare=(Variable(X),Number(0)))),Assign(Y,Number(1)),Assign(Y,Number(0))))",
+      "expected_state": {
+        "X": 2,
+        "Y": 1
+      }
+    },
+    {
+      "file": "nested_while.sipl",
+      "initial_state": {},
+      "expected_ast": "Program(Sequence(Assign(X,Number(2)),While(Compare>(Variable(X),Number(0)),Block(Assign(X,Arithmetic-(Variable(X),Number(1)))))))",
+      "expected_state": {
+        "X": 0
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "file": "bad_character.sipl",
+      "expected_error": "LexError"
+    },
+    {
+      "file": "double_semicolon.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "empty_program.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "lowercase_variable.sipl",
+      "expected_error": "LexError"
+    },
+    {
+      "file": "missing_assign.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "missing_begin.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "missing_else.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "missing_end.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "missing_expression.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "multi_letter_variable.sipl",
+      "expected_error": "LexError"
+    },
+    {
+      "file": "unmatched_parenthesis.sipl",
+      "expected_error": "ParseError"
+    },
+    {
+      "file": "unsupported_comparator.sipl",
+      "expected_error": "LexError"
+    }
+  ]
+}

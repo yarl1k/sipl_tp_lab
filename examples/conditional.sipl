@@ -1,0 +1,6 @@
+begin
+    if X > 0 then
+        begin Y := X * 2 end
+    else
+        begin Y := 0 end
+end

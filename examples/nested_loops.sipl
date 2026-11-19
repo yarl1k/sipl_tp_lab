@@ -1,0 +1,12 @@
+begin
+    I := 2;
+    while I > 0 do
+    begin
+        J := 3;
+        while J > 0 do
+        begin
+            J := J - 1
+        end;
+        I := I - 1
+    end
+end
